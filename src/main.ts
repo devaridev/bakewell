@@ -1,9 +1,10 @@
 import {WIDTH,HEIGHT} from "./constants";
-import Scene from './scenes/scene';
+import GameScene from "./scenes/game_scene";
 
 class Game {
     private _canvas: any;
     private _ctx: any;
+    private _scene: any;
     private _animationFrame: any;
     private _currentTime: number;
 
@@ -17,6 +18,7 @@ class Game {
 
         this._currentTime = performance.now();
 
+        this._scene = new GameScene();
         this.enable();
     }
 
@@ -27,16 +29,17 @@ class Game {
     animate(time) {
         this._animationFrame = requestAnimationFrame(this.animate.bind(this));
 
-        var dt = Math.max(0, time - this._currentTime);
-        this.update(dt);
+        let dt = Math.max(0, time - this._currentTime);
+        this.loop(dt);
         this._currentTime = time;
     }
 
-    update(dt) {
-        this.draw();
+    loop(dt) {
+        this._scene.draw(dt);
+        this.present();
     }
 
-    draw() {
+    present() {
         var { _ctx } = this;
 
         _ctx.clearRect(0, 0, WIDTH, HEIGHT);
