@@ -1,0 +1,7 @@
+{
+  "name": "bakewell",
+  "version": "1.0.0",
+  "dependencies": {
+    "commonjs": "0.0.1"
+  }
+}
