@@ -1,5 +1,6 @@
 import {WIDTH,HEIGHT} from "./constants";
 import GameScene from "./scenes/game_scene";
+import Scene from "./core/scene";
 
 class Game {
     private _canvas: any;
@@ -35,11 +36,17 @@ class Game {
     }
 
     loop(dt) {
-        this._scene.draw(dt);
-        this.present();
+        if (!this._scene._loaded) {
+            this._scene.load()
+        }
+
+        this.clear();
+
+        this._scene.update(dt)
+        this._scene.draw(this._ctx);
     }
 
-    present() {
+    clear() {
         var { _ctx } = this;
 
         _ctx.clearRect(0, 0, WIDTH, HEIGHT);
