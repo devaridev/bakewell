@@ -1,3 +1,6 @@
+import {WIDTH,HEIGHT} from "./constants";
+import Scene from './scenes/scene';
+
 class Game {
     private _canvas: any;
     private _ctx: any;
@@ -8,8 +11,8 @@ class Game {
         this._canvas = document.getElementById("g");
         this._ctx = this._canvas.getContext("2d");
 
-        this._canvas.width = 800;
-        this._canvas.height = 600;
+        this._canvas.width = WIDTH;
+        this._canvas.height = HEIGHT;
         this._canvas.oncontextmenu = () => false;
 
         this._currentTime = performance.now();
@@ -36,9 +39,9 @@ class Game {
     draw() {
         var { _ctx } = this;
 
-        _ctx.clearRect(0, 0, 800, 600);
+        _ctx.clearRect(0, 0, WIDTH, HEIGHT);
         _ctx.fillStyle = "#000000";
-        _ctx.fillRect(0, 0, 800, 600);
+        _ctx.fillRect(0, 0, WIDTH, HEIGHT);
     }
 }
 
