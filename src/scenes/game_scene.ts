@@ -5,7 +5,6 @@ import Maze from "../maze";
 
 export default class GameScene extends Scene {
 
-    private _tile: Tile;
     private _maze: Maze
 
     constructor() {
@@ -14,7 +13,11 @@ export default class GameScene extends Scene {
     }
 
     load() {
+        console.log("Loading...");
         this._maze.generate();
+        this._gameObjects.push(this._maze);
+
+        console.log("Loaded!");
         this._loaded = true;
     }
 
@@ -24,6 +27,5 @@ export default class GameScene extends Scene {
 
     draw(ctx) {
         super.draw(ctx);
-
     }
 }
