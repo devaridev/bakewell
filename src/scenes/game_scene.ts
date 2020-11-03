@@ -1,24 +1,19 @@
 import Scene from "../core/scene";
-import Vector2 from "../core/maths/vector2";
-import Tile from "../tiles/tile";
-import Maze from "../maze";
+import Player from "../entities/player";
+import StandardHead from "../entities/parts/human/heads/standard_head";
 
 export default class GameScene extends Scene {
-
-    private _maze: Maze
-
     constructor() {
         super();
-        this._maze = new Maze();
     }
 
     load() {
-        console.log("Loading...");
-        this._maze.generate();
-        this._gameObjects.push(this._maze);
+        let player: Player = new Player();
+        player._head = new StandardHead();
+        this._gameObjects.push(player);
 
-        console.log("Loaded!");
         this._loaded = true;
+        super.load();
     }
 
     update(dt) {

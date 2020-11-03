@@ -11,11 +11,15 @@ export default class Scene {
     }
 
     load() {
-
+        this._gameObjects.forEach(function(object: GameObject) {
+            object.load();
+        });
     }
 
     update(dt) {
-
+        this._gameObjects.forEach(function(object: GameObject) {
+            object.update(dt);
+        });
     }
 
     draw(ctx) {
