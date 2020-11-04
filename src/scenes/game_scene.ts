@@ -12,8 +12,8 @@ export default class GameScene extends Scene {
     }
 
     load() {
-        let mazeWidth = 10;
-        let mazeHeight = 10;
+        let mazeWidth = 25;
+        let mazeHeight = 25;
 
         this._maze = new Maze(mazeWidth, mazeHeight);
         this._loaded = true;
@@ -33,6 +33,11 @@ export default class GameScene extends Scene {
                 if (!cell._visited) {
                     ctx.beginPath();
                     ctx.fillStyle = "#96d05a";
+                    ctx.fillRect(cell._x * cell._width, cell._y * cell._height, cell._width, cell._height);
+                }
+                else {
+                    ctx.beginPath();
+                    ctx.fillStyle = "#e9c938";
                     ctx.fillRect(cell._x * cell._width, cell._y * cell._height, cell._width, cell._height);
                 }
 
