@@ -5,7 +5,6 @@ export default class DFSMaze extends Maze
     generate(width: number, height: number) {
         super.generate(width, height);
 
-        this._done = false;
         let randomX = Math.floor(Math.random() * Math.floor(this._width));
         let randomY = Math.floor(Math.random() * Math.floor(this._height));
 
@@ -13,10 +12,10 @@ export default class DFSMaze extends Maze
         startCell._visited = true;
         this._stack.push(startCell);
 
-        let interval = setInterval(function(_stack, unvisitedFunc, breakWallsFunc, mazeCells, width, height) {
+        let interval = setInterval(function (_stack, unvisitedFunc, breakWallsFunc, mazeCells, width, height) {
             if (_stack.length) {
                 let currentCell = _stack.pop();
-                let unvisitedNeighbours = unvisitedFunc(currentCell, mazeCells, width, height).filter(function(cell) {
+                let unvisitedNeighbours = unvisitedFunc(currentCell, mazeCells, width, height).filter(function (cell) {
                     return !cell._visited;
                 });
 
@@ -32,8 +31,7 @@ export default class DFSMaze extends Maze
                     currentCell._visited = true;
                     _stack.push(currentCell);
                 }
-            }
-            else {
+            } else {
                 this._done = true;
                 clearInterval(interval);
             }

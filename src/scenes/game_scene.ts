@@ -54,7 +54,8 @@ export default class GameScene extends Scene {
             for(let y = 0; y < this._maze._height; y++) {
                 let cell = this._maze._cells[x][y];
 
-                ctx.lineWidth = 5;
+                ctx.lineWidth = (this._maze._cellWidth / 5);
+
                 if (!cell._visited) {
                     ctx.beginPath();
                     ctx.fillStyle = "#96d05a";

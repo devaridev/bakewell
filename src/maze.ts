@@ -42,9 +42,12 @@ export default class Maze {
         this._cellHeight = HEIGHT / this._height;
 
         this.clearMaze();
+        this._done = false;
     }
 
     clearMaze() {
+        this._done = true;
+
         for(let x = 0; x < this._width; x++) {
             this._cells[x] = [];
             for(let y = 0; y < this._height; y++) {
