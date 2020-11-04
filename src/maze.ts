@@ -18,56 +18,39 @@ class Cell {
         this._height = height;
     }
 }
+
 export default class Maze {
     public _width: number = 0;
     public _height: number = 0;
     public _cells: Cell[][] = [];
     public _stack: Cell[] = [];
+    public _done: boolean = true;
+    public _cellWidth: number = 0;
+    public _cellHeight: number = 0;
 
-    constructor(width, height) {
+    constructor(width: number, height: number) {
         this._width = width;
         this._height = height;
+        this._cellWidth = WIDTH / this._width;
+        this._cellHeight = HEIGHT / this._height;
+    }
 
-        let cellWidth = WIDTH / this._width;
-        let cellHeight = HEIGHT / this._height;
+    generate(width: number, height: number) {
+        this._width = width;
+        this._height = height;
+        this._cellWidth = WIDTH / this._width;
+        this._cellHeight = HEIGHT / this._height;
 
+        this.clearMaze();
+    }
+
+    clearMaze() {
         for(let x = 0; x < this._width; x++) {
             this._cells[x] = [];
             for(let y = 0; y < this._height; y++) {
-                this._cells[x][y] = new Cell(x, y, cellWidth, cellHeight);
+                this._cells[x][y] = new Cell(x, y, this._cellWidth, this._cellHeight);
             }
         }
-    }
-
-    generate() {
-        // let randomX = Math.floor(Math.random() * Math.floor(this._width));
-        // let randomY = Math.floor(Math.random() * Math.floor(this._height));
-        //
-        // let startCell = this._cells[randomX][randomY];
-        // startCell._visited = true;
-        // this._stack.push(startCell);
-        //
-        // setInterval(function(_stack, unvisitedFunc, breakWallsFunc, mazeCells, width, height) {
-        //     if (_stack.length) {
-        //         let currentCell = _stack.pop();
-        //         let unvisitedNeighbours = unvisitedFunc(currentCell, mazeCells, width, height).filter(function(cell) {
-        //             return !cell._visited;
-        //         });
-        //
-        //         if (unvisitedNeighbours.length) {
-        //             _stack.push(currentCell);
-        //
-        //             let randomCell = Math.floor(Math.random() * Math.floor(unvisitedNeighbours.length));
-        //             let neighbourCell = unvisitedNeighbours[randomCell];
-        //
-        //             breakWallsFunc(currentCell, neighbourCell);
-        //
-        //             currentCell = neighbourCell;
-        //             currentCell._visited = true;
-        //             _stack.push(currentCell);
-        //         }
-        //     }
-        // }, 1, this._stack, this.getNeighbours, this.breakWalls, this._cells, this._width, this._height);
     }
 
     getNeighbours(cell: Cell, cells: Cell[][], width: number, height: number) {

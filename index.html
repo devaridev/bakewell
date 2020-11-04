@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>BakeWell</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </head>
 <body>
-    <div style="margin: auto;">
-        <canvas id="g" style="border: 1px solid #4a4848">
-            Sorry, your browser doesn't support canvas. Please upgrade.
-        </canvas>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="g">
+                    Sorry, your browser doesn't support canvas. Please upgrade.
+                </canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" id="width" class="input" placeholder="Width" value="10"/> x <input type="text" id="height" class="input" placeholder="Height" value="10"/>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" id="generateMaze">Generate Maze</button>
+                        <button class="btn btn-primary" id="clearMaze">Clear Maze</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://unpkg.com/systemjs@2.1.1/dist/s.js"></script>

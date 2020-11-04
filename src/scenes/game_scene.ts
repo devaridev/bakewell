@@ -1,24 +1,45 @@
 import Scene from "../core/scene";
-import Player from "../entities/player";
-import StandardHead from "../entities/parts/human/heads/standard_head";
 import Maze from "../maze";
-import {HEIGHT, WIDTH} from "../constants";
 import DFSMaze from "../dfs_maze";
-import PrimsMaze from "../prims_maze";
 
 export default class GameScene extends Scene {
     public _maze: Maze;
+    public _generateButton;
+    public _clearButton;
 
     constructor() {
         super();
+
+        this._generateButton = document.getElementById("generateMaze");
+        this._clearButton = document.getElementById("clearMaze");
+    }
+
+    private generateMaze() {
+        let mazeWidth: number = parseInt((<HTMLInputElement>document.getElementById("width")).value);
+        let mazeHeight: number = parseInt((<HTMLInputElement>document.getElementById("height")).value);
+
+        if (isNaN(mazeWidth) || isNaN(mazeHeight)) {
+            mazeWidth = 10;
+            mazeHeight = 10;
+
+            (<HTMLInputElement>document.getElementById("width")).value = '10';
+            (<HTMLInputElement>document.getElementById("height")).value = '10';
+        }
+
+        this._maze.generate(mazeWidth, mazeHeight)
     }
 
     load() {
         let mazeWidth = 10;
         let mazeHeight = 10;
 
-        this._maze = new PrimsMaze(mazeWidth, mazeHeight);
-        this._maze.generate();
+        this._maze = new DFSMaze(mazeWidth, mazeHeight);
+        this._maze.clearMaze();
+
+        // Events.
+        this._generateButton.addEventListener("click", Event => this.generateMaze());
+
+        this._clearButton.addEventListener("click", Event => this._maze.clearMaze());
 
         this._loaded = true;
         super.load();
@@ -76,16 +97,6 @@ export default class GameScene extends Scene {
                     ctx.strokeStyle = "#ffffff";
                     ctx.stroke();
                 }
-
-                // Start Point
-                ctx.beginPath();
-                ctx.fillStyle = "#6fc44b";
-                ctx.fillRect(0, 0, cell._width, cell._height);
-
-                // End Point
-                ctx.beginPath();
-                ctx.fillStyle = "#642319";
-                ctx.fillRect((this._maze._width - 1)* cell._width, (this._maze._height - 1) * cell._height, cell._width, cell._height);
             }
         }
 
