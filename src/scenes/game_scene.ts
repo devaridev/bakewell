@@ -3,6 +3,8 @@ import Player from "../entities/player";
 import StandardHead from "../entities/parts/human/heads/standard_head";
 import Maze from "../maze";
 import {HEIGHT, WIDTH} from "../constants";
+import DFSMaze from "../dfs_maze";
+import PrimsMaze from "../prims_maze";
 
 export default class GameScene extends Scene {
     public _maze: Maze;
@@ -12,10 +14,12 @@ export default class GameScene extends Scene {
     }
 
     load() {
-        let mazeWidth = 25;
-        let mazeHeight = 25;
+        let mazeWidth = 10;
+        let mazeHeight = 10;
 
-        this._maze = new Maze(mazeWidth, mazeHeight);
+        this._maze = new PrimsMaze(mazeWidth, mazeHeight);
+        this._maze.generate();
+
         this._loaded = true;
         super.load();
     }

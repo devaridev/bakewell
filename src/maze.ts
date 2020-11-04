@@ -37,57 +37,40 @@ export default class Maze {
                 this._cells[x][y] = new Cell(x, y, cellWidth, cellHeight);
             }
         }
-
-        let randomX = Math.floor(Math.random() * Math.floor(this._width));
-        let randomY = Math.floor(Math.random() * Math.floor(this._height));
-
-        let startCell = this._cells[randomX][randomY];
-        startCell._visited = true;
-        this._stack.push(startCell);
-
-        setInterval(function(_stack, unvisitedFunc, mazeCells, width, height) {
-            if (_stack.length) {
-                let currentCell = _stack.pop();
-                let unvisitedNeighbours = unvisitedFunc(currentCell, mazeCells, width, height).filter(function(cell) {
-                    return !cell._visited;
-                });
-
-                if (unvisitedNeighbours.length) {
-                    _stack.push(currentCell);
-
-                    let randomCell = Math.floor(Math.random() * Math.floor(unvisitedNeighbours.length));
-                    let neighbourCell = unvisitedNeighbours[randomCell];
-
-                    // break the wall.
-                    if (currentCell._x > neighbourCell._x) { // From Left
-                        currentCell._left = false;
-                        neighbourCell._right = false;
-                    }
-
-                    if (currentCell._x < neighbourCell._x) { // From Right
-                        currentCell._right = false;
-                        neighbourCell._left = false;
-                    }
-
-                    if (currentCell._y > neighbourCell._y) { // From Bottom
-                        currentCell._top = false;
-                        neighbourCell._bottom = false;
-                    }
-
-                    if (currentCell._y < neighbourCell._y) { // From Top
-                        currentCell._bottom = false;
-                        neighbourCell._top = false;
-                    }
-
-                    currentCell = neighbourCell;
-                    currentCell._visited = true;
-                    _stack.push(currentCell);
-                }
-            }
-        }, 1, this._stack, this.getNeighbours, this._cells, this._width, this._height);
     }
 
-    getNeighbours(cell: Cell, cells: Cell[], width: number, height: number) {
+    generate() {
+        // let randomX = Math.floor(Math.random() * Math.floor(this._width));
+        // let randomY = Math.floor(Math.random() * Math.floor(this._height));
+        //
+        // let startCell = this._cells[randomX][randomY];
+        // startCell._visited = true;
+        // this._stack.push(startCell);
+        //
+        // setInterval(function(_stack, unvisitedFunc, breakWallsFunc, mazeCells, width, height) {
+        //     if (_stack.length) {
+        //         let currentCell = _stack.pop();
+        //         let unvisitedNeighbours = unvisitedFunc(currentCell, mazeCells, width, height).filter(function(cell) {
+        //             return !cell._visited;
+        //         });
+        //
+        //         if (unvisitedNeighbours.length) {
+        //             _stack.push(currentCell);
+        //
+        //             let randomCell = Math.floor(Math.random() * Math.floor(unvisitedNeighbours.length));
+        //             let neighbourCell = unvisitedNeighbours[randomCell];
+        //
+        //             breakWallsFunc(currentCell, neighbourCell);
+        //
+        //             currentCell = neighbourCell;
+        //             currentCell._visited = true;
+        //             _stack.push(currentCell);
+        //         }
+        //     }
+        // }, 1, this._stack, this.getNeighbours, this.breakWalls, this._cells, this._width, this._height);
+    }
+
+    getNeighbours(cell: Cell, cells: Cell[][], width: number, height: number) {
         let cellX: number = cell._x;
         let cellY: number = cell._y;
         let neighbours: Cell[] = [];
@@ -110,5 +93,27 @@ export default class Maze {
         }
 
         return neighbours;
+    }
+
+    breakWalls(currentCell: Cell, neighbourCell: Cell) {
+        if (currentCell._x > neighbourCell._x) { // From Left
+            currentCell._left = false;
+            neighbourCell._right = false;
+        }
+
+        if (currentCell._x < neighbourCell._x) { // From Right
+            currentCell._right = false;
+            neighbourCell._left = false;
+        }
+
+        if (currentCell._y > neighbourCell._y) { // From Bottom
+            currentCell._top = false;
+            neighbourCell._bottom = false;
+        }
+
+        if (currentCell._y < neighbourCell._y) { // From Top
+            currentCell._bottom = false;
+            neighbourCell._top = false;
+        }
     }
 }
