@@ -85,20 +85,6 @@ export default class Maze {
                 }
             }
         }, 1, this._stack, this.getNeighbours, this._cells, this._width, this._height);
-
-
-        // while (this._stack.length) {
-        //     let currentCell = this._stack.pop();
-        //     let unvisitedNeighbours = this.getUnvisitedNeighbours(currentCell);
-        //
-        //     if (unvisitedNeighbours.length) {
-        //         this._stack.push(currentCell);
-        //         let randomCell = Math.floor(Math.random() * Math.floor(unvisitedNeighbours.length));
-        //         currentCell = unvisitedNeighbours[randomCell];
-        //         currentCell._visited = true;
-        //         this._stack.push(currentCell);
-        //     }
-        // }
     }
 
     getNeighbours(cell: Cell, cells: Cell[], width: number, height: number) {

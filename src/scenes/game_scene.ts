@@ -72,6 +72,16 @@ export default class GameScene extends Scene {
                     ctx.strokeStyle = "#ffffff";
                     ctx.stroke();
                 }
+
+                // Start Point
+                ctx.beginPath();
+                ctx.fillStyle = "#6fc44b";
+                ctx.fillRect(0, 0, cell._width, cell._height);
+
+                // End Point
+                ctx.beginPath();
+                ctx.fillStyle = "#642319";
+                ctx.fillRect((this._maze._width - 1)* cell._width, (this._maze._height - 1) * cell._height, cell._width, cell._height);
             }
         }
 
