@@ -12,12 +12,10 @@ export default class GameScene extends Scene {
     }
 
     load() {
-        let mazeWidth = 50;
-        let mazeHeight = 50;
-        let cellWidth = WIDTH / mazeWidth;
-        let cellHeight = HEIGHT / mazeHeight;
+        let mazeWidth = 10;
+        let mazeHeight = 10;
 
-        this._maze = new Maze(mazeWidth, mazeHeight, cellWidth, cellHeight);
+        this._maze = new Maze(mazeWidth, mazeHeight);
         this._loaded = true;
         super.load();
     }
@@ -31,12 +29,43 @@ export default class GameScene extends Scene {
             for(let y = 0; y < this._maze._height; y++) {
                 let cell = this._maze._cells[x][y];
 
-                if (cell._visited) {
+                ctx.lineWidth = 5;
+                if (!cell._visited) {
                     ctx.beginPath();
-                    ctx.fillStyle = "#FF0000";
+                    ctx.fillStyle = "#96d05a";
                     ctx.fillRect(cell._x * cell._width, cell._y * cell._height, cell._width, cell._height);
-                    ctx.strokeFill = "#000000";
-                    ctx.strokeRect(cell._x * cell._width, cell._y * cell._height, cell._width, cell._height);
+                }
+
+                if (cell._top) {
+                    ctx.beginPath()
+                    ctx.moveTo(cell._x * cell._width, cell._y * cell._height);
+                    ctx.lineTo((cell._x * cell._width) + cell._width, cell._y * cell._height);
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
+                }
+
+                if (cell._bottom) {
+                    ctx.beginPath()
+                    ctx.moveTo(cell._x * cell._width, (cell._y * cell._height) + cell._height);
+                    ctx.lineTo((cell._x * cell._width) + cell._width, (cell._y * cell._height) + cell._height);
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
+                }
+
+                if (cell._left) {
+                    ctx.beginPath()
+                    ctx.moveTo(cell._x * cell._width, cell._y * cell._height);
+                    ctx.lineTo(cell._x * cell._width, (cell._y * cell._height) + cell._height);
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
+                }
+
+                if (cell._right) {
+                    ctx.beginPath()
+                    ctx.moveTo((cell._x * cell._width) + cell._width, cell._y * cell._height);
+                    ctx.lineTo((cell._x * cell._width) + cell._width, (cell._y * cell._height) + cell._height);
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
                 }
             }
         }

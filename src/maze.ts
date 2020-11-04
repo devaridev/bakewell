@@ -1,3 +1,5 @@
+import {HEIGHT, WIDTH} from "./constants";
+
 class Cell {
     public _x : number = 0;
     public _y : number = 0;
@@ -22,9 +24,12 @@ export default class Maze {
     public _cells: Cell[][] = [];
     public _stack: Cell[] = [];
 
-    constructor(width, height, cellWidth = 10, cellHeight = 10) {
+    constructor(width, height) {
         this._width = width;
         this._height = height;
+
+        let cellWidth = WIDTH / this._width;
+        let cellHeight = HEIGHT / this._height;
 
         for(let x = 0; x < this._width; x++) {
             this._cells[x] = [];
@@ -49,13 +54,37 @@ export default class Maze {
 
                 if (unvisitedNeighbours.length) {
                     _stack.push(currentCell);
+
                     let randomCell = Math.floor(Math.random() * Math.floor(unvisitedNeighbours.length));
-                    currentCell = unvisitedNeighbours[randomCell];
+                    let neighbourCell = unvisitedNeighbours[randomCell];
+
+                    // break the wall.
+                    if (currentCell._x > neighbourCell._x) { // From Left
+                        currentCell._left = false;
+                        neighbourCell._right = false;
+                    }
+
+                    if (currentCell._x < neighbourCell._x) { // From Right
+                        currentCell._right = false;
+                        neighbourCell._left = false;
+                    }
+
+                    if (currentCell._y > neighbourCell._y) { // From Bottom
+                        currentCell._top = false;
+                        neighbourCell._bottom = false;
+                    }
+
+                    if (currentCell._y < neighbourCell._y) { // From Top
+                        currentCell._bottom = false;
+                        neighbourCell._top = false;
+                    }
+
+                    currentCell = neighbourCell;
                     currentCell._visited = true;
                     _stack.push(currentCell);
                 }
             }
-        }, 300, this._stack, this.getNeighbours, this._cells, this._width, this._height);
+        }, 1, this._stack, this.getNeighbours, this._cells, this._width, this._height);
 
 
         // while (this._stack.length) {
@@ -95,11 +124,5 @@ export default class Maze {
         }
 
         return neighbours;
-    }
-
-    getUnvisitedNeighbours(cell: Cell, cells: Cell[], width, height) {
-        return this.getNeighbours(cell, cells, width, height).filter(function(cell) {
-            return !cell._visited;
-        });
     }
 }
