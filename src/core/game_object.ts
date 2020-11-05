@@ -1,6 +1,5 @@
 import Vector2 from "./maths/vector2";
 import {MAX_CHILDREN} from "../constants";
-import {WHITE} from "../colors";
 
 export default class GameObject {
     public _position: Vector2;
@@ -10,7 +9,6 @@ export default class GameObject {
     constructor() {
         this._children = new Array(MAX_CHILDREN);
         this._position = new Vector2(0, 0);
-        this._color = WHITE;
     }
 
     load() {

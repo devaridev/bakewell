@@ -1,6 +1,5 @@
 import Scene from "../core/scene";
 import Maze from "../maze";
-import DFSMaze from "../dfs_maze";
 
 export default class GameScene extends Scene {
     public _maze: Maze;
@@ -33,7 +32,7 @@ export default class GameScene extends Scene {
         let mazeWidth = 10;
         let mazeHeight = 10;
 
-        this._maze = new DFSMaze(mazeWidth, mazeHeight);
+        this._maze = new Maze(mazeWidth, mazeHeight);
         this._maze.clearMaze();
 
         // Events.
