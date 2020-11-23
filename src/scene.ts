@@ -1,31 +1,14 @@
-import Scene from "../core/scene";
-import Maze from "../maze";
+import Maze from "./maze";
 
-export default class GameScene extends Scene {
+export default class Scene {
     public _maze: Maze;
     public _generateButton;
     public _clearButton;
+    public _loaded;
 
     constructor() {
-        super();
-
         this._generateButton = document.getElementById("generateMaze");
         this._clearButton = document.getElementById("clearMaze");
-    }
-
-    private generateMaze() {
-        let mazeWidth: number = parseInt((<HTMLInputElement>document.getElementById("width")).value);
-        let mazeHeight: number = parseInt((<HTMLInputElement>document.getElementById("height")).value);
-
-        if (isNaN(mazeWidth) || isNaN(mazeHeight)) {
-            mazeWidth = 10;
-            mazeHeight = 10;
-
-            (<HTMLInputElement>document.getElementById("width")).value = '10';
-            (<HTMLInputElement>document.getElementById("height")).value = '10';
-        }
-
-        this._maze.generate(mazeWidth, mazeHeight)
     }
 
     load() {
@@ -36,16 +19,24 @@ export default class GameScene extends Scene {
         this._maze.clearMaze();
 
         // Events.
-        this._generateButton.addEventListener("click", Event => this.generateMaze());
+        this._generateButton.addEventListener("click", Event => {
+            let mazeWidth: number = parseInt((<HTMLInputElement>document.getElementById("width")).value);
+            let mazeHeight: number = parseInt((<HTMLInputElement>document.getElementById("height")).value);
+
+            if (isNaN(mazeWidth) || isNaN(mazeHeight)) {
+                mazeWidth = 10;
+                mazeHeight = 10;
+
+                (<HTMLInputElement>document.getElementById("width")).value = '10';
+                (<HTMLInputElement>document.getElementById("height")).value = '10';
+            }
+
+            this._maze.generate(mazeWidth, mazeHeight)
+        });
 
         this._clearButton.addEventListener("click", Event => this._maze.clearMaze());
 
         this._loaded = true;
-        super.load();
-    }
-
-    update(dt) {
-        super.update(dt);
     }
 
     draw(ctx) {
@@ -99,7 +90,5 @@ export default class GameScene extends Scene {
                 }
             }
         }
-
-        super.draw(ctx);
     }
 }

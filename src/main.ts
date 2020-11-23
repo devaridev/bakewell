@@ -1,10 +1,9 @@
 import {WIDTH,HEIGHT} from "./constants";
-import GameScene from "./scenes/game_scene";
-import Scene from "./core/scene";
+import GameScene from "./scene";
 
 class Game {
     private _canvas: any;
-    private _ctx: any;
+    private readonly _ctx: any;
     private _scene: any;
     private _animationFrame: any;
     private _currentTime: number;
@@ -42,7 +41,6 @@ class Game {
 
         this.clear();
 
-        this._scene.update(dt)
         this._scene.draw(this._ctx);
     }
 
