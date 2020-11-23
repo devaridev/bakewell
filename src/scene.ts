@@ -1,3 +1,4 @@
+import DFSMaze from "./dfs_maze";
 import Maze from "./maze";
 
 export default class Scene {
@@ -15,8 +16,8 @@ export default class Scene {
         let mazeWidth = 10;
         let mazeHeight = 10;
 
-        this._maze = new Maze(mazeWidth, mazeHeight);
-        this._maze.clearMaze();
+        this._maze = new DFSMaze(mazeWidth, mazeHeight);
+        this._maze.clear();
 
         // Events.
         this._generateButton.addEventListener("click", Event => {
@@ -34,17 +35,17 @@ export default class Scene {
             this._maze.generate(mazeWidth, mazeHeight)
         });
 
-        this._clearButton.addEventListener("click", Event => this._maze.clearMaze());
+        this._clearButton.addEventListener("click", Event => this._maze.clear());
 
         this._loaded = true;
     }
 
     draw(ctx) {
-        for(let x = 0; x < this._maze._width; x++) {
-            for(let y = 0; y < this._maze._height; y++) {
-                let cell = this._maze._cells[x][y];
+        for(let x = 0; x < this._maze.getWidth(); x++) {
+            for(let y = 0; y < this._maze.getHeight(); y++) {
+                let cell = this._maze.getCells()[x][y];
 
-                ctx.lineWidth = (this._maze._cellWidth / 5);
+                ctx.lineWidth = (this._maze.getCellWidth() / 5);
 
                 if (!cell._visited) {
                     ctx.beginPath();
