@@ -1,10 +1,8 @@
-### Project Bakewell 
-`Work in Progress`
+### Maze Generator 
 
 # About 
 This is a simple maze generator tool. The maze is generated with DFS (Depth First Search). Future Additions could
-include a solver, and perhaps other maze implementations. I built this for a bit of fun, you can see it live here: 
-
+include a solver, and perhaps other maze algorithm implementations. I built this for a bit of fun, you can see it live here: 
 https://games.devari.dev/bakewell
 
 ## Languages & Tools
